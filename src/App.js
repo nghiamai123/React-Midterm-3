@@ -4,6 +4,9 @@ import "./App.css";
 import Navbar from "./components/layout/Navbar";
 import Users from "./users/Users";
 import Search from "./users/Search";
+import About from "./components/pages/About";
+import NotFound from "./components/pages/NotFound";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 function App() {
   // Use the 'useEffect' hook to perform side effects in function components
   const [users, setUsers] = useState([]);
@@ -29,13 +32,19 @@ function App() {
   // when the component mounts
   return (
     <div className="App">
-      <Navbar />
-      <div className="container">
-        <h1>GitHub Users Data</h1>
-      </div>
-      <Search />
-      <Users users={users}/>
-      
+      <Router>
+        <Navbar />
+        <div className="container">
+          <h1>GitHub Users Data</h1>
+        </div>
+        <Switch>
+          <Route exact path="/" component={Search} />
+          <Route exact path="/about" component={About} />
+          <Route path="/*" component={NotFound}></Route>
+        </Switch>
+        {/* <Search /> */}
+        {false && <Users users={users} />}
+      </Router>
     </div>
   );
 }
